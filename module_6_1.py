@@ -32,23 +32,23 @@ class Predator(Animal):
             print(f'{self.name} не стал есть {food.name}')
             self.alive = False
 
-# Унаследованный класс растений - Цветы
+
 class Flower(Plant):
     pass
- # edible = True
 
-# Унаследованный класс растений - Фрукты
+
+
 class Fruit(Plant):
     edible = True
 
 
 # Ввод названий животных и растений
-animal1 = Predator('Lion')
-animal2 = Mammal('Cow')
-plant1 = Plant('Lily')
-plant2 = Fruit('Orange')
+animal1 = Predator('Волк с Уолл-Стрит')
+animal2 = Mammal('Хатико')
+plant1 = Plant('Цветик семицветик')
+plant2 = Fruit('Заводной апельсин')
 
-# Вывод результата
+
 print(animal1.name)
 print(plant1.name)
 
