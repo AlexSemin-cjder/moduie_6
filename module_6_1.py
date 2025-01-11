@@ -1,17 +1,14 @@
- # Создаём родительский класс животные
 class Animal:
     alive = True    # (живой)
     fed = False     # (накормленный)
     def __init__(self, name):
         self.name = name
 
-# Создаём  родительский класс растений
 class Plant:
     edible = False  # (съедобность)
     def __init__(self, name):
         self.name = name
 
-# Создаём унаследованный класс животных - Травоядные
 class Mammal(Animal):
     def eat(self, food):
         if food.edible:
@@ -21,7 +18,6 @@ class Mammal(Animal):
             print(f'{self.name} не стал есть {food.name}')
             self.alive = False
 
-# Создаём унаследованный класс животных - Хищники
 class Predator(Animal):
 
     def eat(self, food):
@@ -36,26 +32,22 @@ class Predator(Animal):
 class Flower(Plant):
     pass
 
-
-
 class Fruit(Plant):
     edible = True
 
-
-# Ввод названий животных и растений
-animal1 = Predator('Волк с Уолл-Стрит')
-animal2 = Mammal('Хатико')
-plant1 = Plant('Цветик семицветик')
-plant2 = Fruit('Заводной апельсин')
+a1 = Predator('Волк с Уолл-Стрит')
+a2 = Mammal('Хатико')
+p1 = Plant('Цветик семицветик')
+p2 = Fruit('Заводной апельсин')
 
 
-print(animal1.name)
-print(plant1.name)
+print(a1.name)
+print(p1.name)
 
-print(animal1.alive, f'- {animal1.name} живой')
-print(animal2.fed, f'- {animal2.name} голоден')
+print(a1.alive )
+print(a2.fed )
 
-animal1.eat(plant1)
-animal2.eat(plant2)
-print(animal1.alive, f'- {animal1.name} помер')
-print(animal2.fed, f'- {animal2.name} сыт')
+a1.eat(p1)
+a2.eat(p2)
+print(a1.alive )
+print(a2.fed )
