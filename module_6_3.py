@@ -1,56 +1,65 @@
-# Horse - класс описывающий Лошадь.
-class Horse:
-    def __init__(self, *args):
-        self.x_distance = 0
-        self.sound = 'Frrr'
-        super().__init__(*args)
+import random
+class Animal:
+    live = True
+    sound = None # звук
+    _DEGREE_OF_DANGER = 0 #степень опастности
+    def __init__(self, speed):
+        self._cords = [0, 0, 0]
+        self.speed = speed
+    def move(self, dx, dy, dz):
+        new_x = self._cords [0] + dx * self.speed
+        new_y = self._cords [1] + dy * self.speed
+        new_z = self._cords [2] + dz * self.speed
+        if new_z < 0:
+            print("It's too deep, i can't dive :(")
+        else:
+            self._cords = [new_x, new_y, new_z]
 
-    # Метод run(self, dx) увеличивает x_distance на dx.
-    def run(self, dx):
-        self.x_distance += dx
+    def get_cords(self):
+        print(f'X: {self._cords [0]}, Y: {self._cords [1]}, Z: {self._cords [2]}')
 
+    def attack(self):
+        if self._DEGREE_OF_DANGER < 5:
+            print("Sorry, i'm peaceful :)")
+        else:
+            print("Be careful, i'm attacking you 0_0")
 
-# Eagle - класс описывающий Орла.
-class Eagle:
-    def __init__(self, *args):
-        self.y_distance = 0
-        self.sound = 'I train, eat, sleep, and repeat'
-        super().__init__(*args)
+class Bird(Animal):
+    beak = True # клюв есть
+    def lay_eggs(self):
+        num_of_eggs = random.randint(1, 4)
+        print (f"Here are(is) {num_of_eggs} eggs for you")
 
-    # Метод fly(self, dy) увеличивает y_distance на dy.
-    def fly(self, dy):
-        self.y_distance += dy
+class AquaticAnimal(Animal):
+    _DEGREE_OF_DANGER = 3
+    def dive_in(self, dz):
+        new_z = self._cords[2] - abs(dz) * .5 * self.speed
+        self._cords[2] = max(new_z, 0)
 
+class PoisonousAnimal(Animal):
+    _DEGREE_OF_DANGER = 8
 
-# Pegasus - класс описывающий пегаса. Наследуется от Horse и Eagle в том же порядке.
-class Pegasus(Horse, Eagle):
-    def __init__(self, *args):
-        super().__init__(*args)
-
-    # Метод move(self, dx, dy) - где dx и dy изменения дистанции.
-    # Этот метод запускает наследованные методы run и fly соответственно.
-    def move(self, dx, dy):
-        self.run(dx)
-        self.fly(dy)
-
-    # Метод get_pos(self) возвращает текущее положение пегаса в виде кортежа -
-    # (x_distance, y_distance) в том же порядке.
-    def get_pos(self):
-        return self.x_distance, self.y_distance
-
-    # Метод voice - печатает значение унаследованного атрибута sound.
-    def voice(self):
+class Duckbill(PoisonousAnimal, Bird, AquaticAnimal):
+    sound = "Click-click-click" # утконос
+    def __init__(self, speed):
+        super().__init__(speed)
+    def speak(self):
         print(self.sound)
 
 
-# Вывод перемещения Пегаса.
-p1 = Pegasus()
 
-print(p1.get_pos())
-p1.move(10, 15)
-print(p1.get_pos())
-p1.move(-5, 20)
-print(p1.get_pos())
 
-# Вывод: 'I train, eat, sleep, and repeat'
-p1.voice()
+db = Duckbill(10)
+
+print(db.live)
+print(db.beak)
+
+db.speak()
+db.attack()
+
+db.move(1, 2, 3)
+db.get_cords()
+db.dive_in(6)
+db.get_cords()
+
+db.lay_eggs()
